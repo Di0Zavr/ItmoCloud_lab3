@@ -1,4 +1,4 @@
-name: Doing-DevOps-lab3-stuff
+name: doing-devops-lab3-stuff
 
 on: 
   push:
@@ -6,17 +6,17 @@ on:
       - main
 
 jobs:
-  build: 
+  generate-text-file: 
     runs-on: ubuntu:latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
 
-    - name: Build the Docker image
+    - name: Build the docker image
       run: docker build -t lab3-generating-text .
 
-    - name: Run the Docker container
+    - name: Run the docker container
       run: docker run lab3-generating-text
 
     - name: Copy output.txt back to the repository
@@ -30,3 +30,22 @@ jobs:
         git commit -m "Add generated output.txt"
         git push
         
+  push-on-dockerhub:
+    runs-on: ubuntu:latest
+
+    steps:
+    - name: Checkout repo
+      run: actions/checkout@v2
+
+    - name: Login on dockerhub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Push image on dockerhub
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: dio05000/lab3-image:1.0.0
