@@ -1,0 +1,32 @@
+name: Doing-DevOps-lab3-stuff
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build: 
+    runs-on: ubuntu:latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build the Docker image
+      run: docker build -t lab3-generating-text .
+
+    - name: Run the Docker container
+      run: docker run lab3-generating-text
+
+    - name: Copy output.txt back to the repository
+      run: cp usr/src/app/output.txt $GITHUB_WORKSPACE
+
+    - name: Commit and push generated output.txt
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add output.txt
+        git commit -m "Add generated output.txt"
+        git push
+        
