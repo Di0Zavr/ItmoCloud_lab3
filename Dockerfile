@@ -1,7 +1,7 @@
 FROM python:3
 
-WORKDIR /app
+WORKDIR /app/
 
-COPY . /app
+COPY . /app/
 
 CMD ["python", "generate_text.py"]
