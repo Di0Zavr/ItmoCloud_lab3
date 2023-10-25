@@ -20,7 +20,7 @@ jobs:
       run: docker run lab3-generating-text
 
     - name: Copy output.txt back to the repository
-      run: cp /app/output.txt/ $GITHUB_WORKSPACE
+      run: cp /output.txt/ $GITHUB_WORKSPACE
 
     - name: Commit and push generated output.txt
       run: |
