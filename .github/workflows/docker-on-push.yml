@@ -51,4 +51,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: dio05000_lab3-image:latest
+        tags: dio05000/lab3-image:latest
