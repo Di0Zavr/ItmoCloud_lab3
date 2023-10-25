@@ -7,7 +7,7 @@ on:
 
 jobs:
   generate-text-file: 
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -31,7 +31,7 @@ jobs:
         git push
         
   push-on-dockerhub:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repo
