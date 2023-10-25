@@ -16,11 +16,14 @@ jobs:
     - name: Build the docker image
       run: docker build -t lab3-generating-text .
 
-    - name: Run the docker container
-      run: docker run lab3-generating-text
+    - name: Run the docker container and copy output.txt back to the repository
+      run: docker run --name my-container lab3-generating-text
 
-    - name: Copy output.txt back to the repository
-      run: cp /output.txt/ $GITHUB_WORKSPACE
+    - name: Copy txt file from the container
+      run: docker cp my-container:/app/output.txt $GITHUB_WORKSPACE
+
+    - name: Clean up
+      run: docker rm my-container
 
     - name: Commit and push generated output.txt
       run: |
