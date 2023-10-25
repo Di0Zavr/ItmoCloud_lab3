@@ -1,7 +1,7 @@
 FROM python:3.12.0-bookworm
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . /usr/src/app
+COPY . /app
 
-RUN python generate_text.py 
+CMD ["python", "generate_text.py"] 
